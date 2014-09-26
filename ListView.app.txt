@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace listView.app
+{
+    public partial class ListViewUI : Form
+    {
+        public ListViewUI()
+        {
+            InitializeComponent();
+        }
+
+        List<personInfo> personList = new List<personInfo>();
+ 
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            personInfo aPerson = new personInfo();
+            aPerson.id = idTextBox.Text;
+            aPerson.name = nameTextBox.Text;
+            aPerson.salary = salaryTextBox.Text;
+            aPerson.address = addressTextBox.Text;
+
+            personList.Add(aPerson);
+
+            InsertIntoListView(aPerson);
+
+
+            ClearTextBoxes();
+        }
+
+        private void InsertIntoListView(personInfo aPerson)
+        {
+            ListViewItem item = new ListViewItem(aPerson.id);
+            item.SubItems.Add(aPerson.name);
+            item.SubItems.Add(aPerson.salary);
+            item.SubItems.Add(aPerson.address);
+            showListView.Items.Add(item);
+        }
+
+
+        private void ClearTextBoxes()
+        {
+            idTextBox.Text = String.Empty;
+            nameTextBox.Text = String.Empty;
+            salaryTextBox.Text = String.Empty;
+            addressTextBox.Text = String.Empty;
+        }
+
+        private void showListView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedIndex = showListView.SelectedIndices[0];
+            idTextBox.Text = personList[selectedIndex].id;
+            nameTextBox.Text = personList[selectedIndex].name;
+            salaryTextBox.Text = personList[selectedIndex].salary;
+            addressTextBox.Text = personList[selectedIndex].address;
+
+        }
+    }
+}
+
+
+///////////////////////personInfo class//////////////////////////
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace listView.app
+{
+    class personInfo
+    {
+        public string id;
+        public string name;
+        public string salary;
+        public string address;
+
+       
+    }
+}
